@@ -1,7 +1,9 @@
-#   SMAI Project
+#   IIIT-H Campus Region Prediction Project
 
-
-
+For this project, the dataset was entirely made by IIIT-H students; each student took 55 pictures of the campus. These images were then used for 3 tasks:
+- **RegionId prediction:** Predict the region id (campus was divided into 15 regions for the task so possible ids were 1-15) of an image
+- **Latitude and Longitude Prediction:** Predict the latitude and longitude (scaled) of an image
+- **Angle prediction:** Predict the angle (0-360) relative to absolute north (0 degrees)
 ### **1. Region ID classifier (`region.py`)**
 
 1. **Backbone:** *ConvNeXt‑Large* – modern CNN/Transformer hybrid, **ImageNet‑1K pre‑trained**.
@@ -32,12 +34,9 @@
 1. **Backbone:** *Swin‑Large* (Transformer) pre‑trained on ImageNet‑22K, features only.
 2. **Head:** 2‑unit linear → predicts **(sin θ, cos θ)**; keeps angle periodicity.
 3. **Loss:** **CosineEmbeddingLoss** between predicted and target unit vectors → directly minimises angular deviation.
-4. **Dihedral‑8 augmentation:** centre‑crop then implicit D8 via colour‑jitter; keeps orientation information but improves invariance.
-5. **Learning‑rate policy:** Adam W 1e‑4, warm‑up 5, cosine anneal.
-6. **Metric:** Mean‑Absolute‑Angular‑Error (MAAE) printed each epoch; best ckpt saved as `angle_regressor.pt`.
+4. **Learning‑rate policy:** Adam W 1e‑4, warm‑up 5, cosine anneal.
+5. **Metric:** Mean‑Absolute‑Angular‑Error (MAAE) printed each epoch; best ckpt saved as `angle_regressor.pt`.
 
 
 ---
 
-
-Link to .pt model files: https://drive.google.com/drive/folders/1IFI8mp9Aq1kBLVs_T44CuRihwrYGDm27?usp=sharing
